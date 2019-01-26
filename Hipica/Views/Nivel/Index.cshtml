@@ -1,0 +1,66 @@
+﻿@model List<Hipica.Entity.Nivel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>SELECCIONA TU NIVEL</h2>
+
+<div class="row">
+    @foreach (var nivel in Model)
+    {
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="http://raulperez.tieneblog.net/wp-content/uploads/2015/09/tux.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Nivel @nivel.Nivel1 </h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <input class="form-control nivelSeleccionado" type="checkbox" name="vehicle" value="@nivel.Id" > <br>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="row">
+    <button class="btn btn-primary" id="siguienteNivel"> Siguiente</button>
+    @*@Html.ActionLink("Siguiente","Prueba",
+                     "Nivel" ,   // <-- ActionMethod
+                                       new { idNivel= 2}, // <-- Route arguments.
+                                                                            null  // <-- htmlArguments .. which are none. You need this value
+                      //     otherwise you call the WRONG method ...
+    //     (refer to comments, below).
+    )*@
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        var idNivelSeleccionado = null; //null por que no habrá nada seleccionado
+        $(document).ready(function () {
+
+            $("#siguienteNivel").click(function () {
+                
+
+            });
+
+            $(".nivelSeleccionado").click(function () {
+                console.log("Hemos seleccionado un nivel ")
+            })
+
+            $("input:checkbox").on('click', function () {
+                
+                idNivelSeleccionado = this.value;
+                //idNivelSeleccionado = 1
+
+                $("input[type=checkbox]:checked").each(function () {
+                    //this.value = 1
+                    if (idNivelSeleccionado != this.value) {
+                        $(this).prop("checked", false);
+                    }
+                });
+            })
+
+        })
+    </script>
+}

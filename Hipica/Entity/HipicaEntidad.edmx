@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HipicaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Caballo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Id_Nivel" Type="int" Nullable="false" />
+          <Property Name="Ruta_Foto" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Monitor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Ruta_Imagen" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Nivel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nivel" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ruta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Duracion" Type="int" Nullable="false" />
+          <Property Name="Precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Id_Nivel" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar(max)" />
+          <Property Name="Ruta_Imagen" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_Caballo_Nivel">
+          <End Role="Nivel" Type="Self.Nivel" Multiplicity="1" />
+          <End Role="Caballo" Type="Self.Caballo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nivel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Caballo">
+              <PropertyRef Name="Id_Nivel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ruta_Nivel">
+          <End Role="Nivel" Type="Self.Nivel" Multiplicity="1" />
+          <End Role="Ruta" Type="Self.Ruta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nivel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ruta">
+              <PropertyRef Name="Id_Nivel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HipicaModelStoreContainer">
+          <EntitySet Name="Caballo" EntityType="Self.Caballo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Monitor" EntityType="Self.Monitor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nivel" EntityType="Self.Nivel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ruta" EntityType="Self.Ruta" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Caballo_Nivel" Association="Self.FK_Caballo_Nivel">
+            <End Role="Nivel" EntitySet="Nivel" />
+            <End Role="Caballo" EntitySet="Caballo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ruta_Nivel" Association="Self.FK_Ruta_Nivel">
+            <End Role="Nivel" EntitySet="Nivel" />
+            <End Role="Ruta" EntitySet="Ruta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HipicaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Caballo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id_Nivel" Type="Int32" Nullable="false" />
+          <Property Name="Ruta_Foto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Nivel" Relationship="Self.FK_Caballo_Nivel" FromRole="Caballo" ToRole="Nivel" />
+        </EntityType>
+        <EntityType Name="Monitor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ruta_Imagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Nivel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nivel1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Caballo" Relationship="Self.FK_Caballo_Nivel" FromRole="Nivel" ToRole="Caballo" />
+          <NavigationProperty Name="Ruta" Relationship="Self.FK_Ruta_Nivel" FromRole="Nivel" ToRole="Ruta" />
+        </EntityType>
+        <EntityType Name="Ruta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Duracion" Type="Int32" Nullable="false" />
+          <Property Name="Precio" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Id_Nivel" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Ruta_Imagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Nivel" Relationship="Self.FK_Ruta_Nivel" FromRole="Ruta" ToRole="Nivel" />
+        </EntityType>
+        <Association Name="FK_Caballo_Nivel">
+          <End Role="Nivel" Type="Self.Nivel" Multiplicity="1" />
+          <End Role="Caballo" Type="Self.Caballo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nivel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Caballo">
+              <PropertyRef Name="Id_Nivel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ruta_Nivel">
+          <End Role="Nivel" Type="Self.Nivel" Multiplicity="1" />
+          <End Role="Ruta" Type="Self.Ruta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nivel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ruta">
+              <PropertyRef Name="Id_Nivel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HipicaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Caballo" EntityType="Self.Caballo" />
+          <EntitySet Name="Monitor" EntityType="Self.Monitor" />
+          <EntitySet Name="Nivel" EntityType="Self.Nivel" />
+          <EntitySet Name="Ruta" EntityType="Self.Ruta" />
+          <AssociationSet Name="FK_Caballo_Nivel" Association="Self.FK_Caballo_Nivel">
+            <End Role="Nivel" EntitySet="Nivel" />
+            <End Role="Caballo" EntitySet="Caballo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ruta_Nivel" Association="Self.FK_Ruta_Nivel">
+            <End Role="Nivel" EntitySet="Nivel" />
+            <End Role="Ruta" EntitySet="Ruta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HipicaModelStoreContainer" CdmEntityContainer="HipicaEntities">
+          <EntitySetMapping Name="Caballo">
+            <EntityTypeMapping TypeName="HipicaModel.Caballo">
+              <MappingFragment StoreEntitySet="Caballo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id_Nivel" ColumnName="Id_Nivel" />
+                <ScalarProperty Name="Ruta_Foto" ColumnName="Ruta_Foto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Monitor">
+            <EntityTypeMapping TypeName="HipicaModel.Monitor">
+              <MappingFragment StoreEntitySet="Monitor">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Ruta_Imagen" ColumnName="Ruta_Imagen" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nivel">
+            <EntityTypeMapping TypeName="HipicaModel.Nivel">
+              <MappingFragment StoreEntitySet="Nivel">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nivel1" ColumnName="Nivel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ruta">
+            <EntityTypeMapping TypeName="HipicaModel.Ruta">
+              <MappingFragment StoreEntitySet="Ruta">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Duracion" ColumnName="Duracion" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Id_Nivel" ColumnName="Id_Nivel" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Ruta_Imagen" ColumnName="Ruta_Imagen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
